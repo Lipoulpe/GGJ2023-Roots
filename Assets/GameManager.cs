@@ -6,8 +6,10 @@ using UnityEngine;
 public enum GameState
 {
     PickingSeed,
-    Thrown,
-    AfterThrow
+    ThrowingSeed,
+    SeedStopMoving,
+    GrowingSeed,
+    EndGrowth
 }
 
 public class GameManager : MonoBehaviour
@@ -17,10 +19,10 @@ public class GameManager : MonoBehaviour
 
     public static event Action<GameState> OnGameChanged;
 
-    [SerializeField] private SeedBehaviour _Seed;
+    public float HorizontalStrengh = 500f;
+    public float VerticalStrengh = 200f;
 
-    public float _HorizontalStrengh = 500f;
-    public float _VerticalStrengh = 200f;
+    public SeedBehaviour CurrentSeed;
 
     private void Awake()
     {
@@ -38,10 +40,9 @@ public class GameManager : MonoBehaviour
 
         switch(newState)
         {
-            case GameState.AfterThrow:
-                _Seed.Rigidbody.simulated = false;
-                _Seed.Reset();
+            case GameState.GrowingSeed:
                 break;
+
         }
 
         OnGameChanged?.Invoke(newState);
@@ -49,11 +50,6 @@ public class GameManager : MonoBehaviour
 
     public void Throw()
     {
-        UpdateGameState(GameState.Thrown);
-        //Seed
-        _Seed.Rigidbody.simulated = true;
-        _Seed.Rigidbody.AddForce(new Vector2(_HorizontalStrengh, _VerticalStrengh),ForceMode2D.Impulse);
+        UpdateGameState(GameState.ThrowingSeed);
     }
-
- 
 }

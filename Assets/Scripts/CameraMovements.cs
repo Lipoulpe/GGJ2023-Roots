@@ -30,7 +30,7 @@ public class CameraMovements : MonoBehaviour
 
     void CenterCamera()
     {
-        if (GameManager.Instance.State != GameState.Thrown) return;
+        if (GameManager.Instance.State != GameState.ThrowingSeed) return;
 
         float t = _Seed.Rigidbody.velocity.x / 1000f;
 

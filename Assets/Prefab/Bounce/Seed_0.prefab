@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3522768613144639178}
   - component: {fileID: 3522768613144639181}
   - component: {fileID: 3522768613144639180}
-  - component: {fileID: 3522768613144639182}
+  - component: {fileID: 1340279671196150613}
   m_Layer: 0
   m_Name: Seed_0
   m_TagString: Untagged
@@ -75,8 +75,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1709733337
   m_SortingLayer: 2
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_SortingOrder: 1
+  m_Sprite: {fileID: 21300000, guid: 8e4bac5935573b54ba13d77bd26491a8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -104,7 +104,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 1.28, y: 1.28}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -134,7 +134,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &3522768613144639182
+--- !u!114 &1340279671196150613
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -143,12 +143,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 3522768613144639177}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4eb5ffab7e4c9142bb86456075d178d, type: 3}
+  m_Script: {fileID: 11500000, guid: 99b751f0779797847bfc4914464ac2be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SpriteRenderer: {fileID: 3522768613144639178}
   Rigidbody: {fileID: 3522768613144639180}
   SeedsParent: {fileID: 0}
   ThrowBeforeGrowth: 1
   GravityScale: 30
-  SeedNextStage: {fileID: 3522768613144639177, guid: 5d7f6b52c30b09949b1656aef3e514e7, type: 3}
+  SeedNextStage: {fileID: 3522768613144639177, guid: 8dbb167cbc04929458c151c5da26d17d, type: 3}
   IsRooted: 0
+  _HorizontaleBounce: 0
+  _VerticaleBounce: 0

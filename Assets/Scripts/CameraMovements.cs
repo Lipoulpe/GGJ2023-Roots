@@ -28,6 +28,7 @@ public class CameraMovements : MonoBehaviour
         CenterCamera();
     }
 
+
     void CenterCamera()
     {
         if (GameManager.Instance.State != GameState.ThrowingSeed) return;

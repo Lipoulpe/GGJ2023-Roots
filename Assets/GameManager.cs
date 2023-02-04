@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum GameState
 {
@@ -20,10 +21,10 @@ public class GameManager : MonoBehaviour
     public static event Action<GameState> OnGameChanged;
     public static event Action OnPickedSeed;
 
-    public float HorizontalStrengh = 500f;
-    public float VerticalStrengh = 200f;
+    public float HorizontalStrengh;
 
-    [SerializeField] SeedBehaviour _Seed;
+    public Slider Strenght;
+    public SeedBehaviour Seed;
 
     private void Awake()
     {
@@ -42,6 +43,13 @@ public class GameManager : MonoBehaviour
         switch(newState)
         {
             case GameState.GrowingSeed:
+                IEnumerator Growing()
+                {
+                    yield return new WaitForSeconds(1);
+                    UpdateGameState(GameState.PickingSeed);
+                }
+
+                StartCoroutine(Growing());
                 break;
 
         }
@@ -51,15 +59,16 @@ public class GameManager : MonoBehaviour
 
     public void Throw()
     {
+        HorizontalStrengh = Strenght.value;
         UpdateGameState(GameState.ThrowingSeed);
     }
 
     public void PickedSeed(SeedBehaviour seed_0)
     {
-        _Seed.SeedNextStage = seed_0.SeedNextStage;
-        _Seed.Rigidbody.gravityScale = seed_0.Rigidbody.gravityScale;
+        Seed.SeedNextStage = seed_0.SeedNextStage;
+        Seed.Rigidbody.gravityScale = seed_0.Rigidbody.gravityScale;
 
-        _Seed.SpriteRenderer.sprite = seed_0.SpriteRenderer.sprite;
+        Seed.SpriteRenderer.sprite = seed_0.SpriteRenderer.sprite;
     }
 
 }

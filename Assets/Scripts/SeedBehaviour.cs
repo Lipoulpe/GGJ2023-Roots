@@ -43,22 +43,52 @@ public class SeedBehaviour : MonoBehaviour
 
     }
 
+    public void OnOnGameChanged(GameState newState)
+    {
+        if (newState == GameState.ThrowingSeed && !IsRooted)
+        {
+            Throw();
+        }
+        if (newState == GameState.SeedStopMoving && !IsRooted)
+        {
+            GenerateSeed();
+            GameManager.Instance.UpdateGameState(GameState.GrowingSeed);
+        }
+        if(newState == GameState.GrowingSeed && IsRooted)
+        {
+            Growing();
+        }
+
+        if (newState == GameState.EndGrowth && !IsRooted)
+        {
+            GameManager.Instance.UpdateGameState(GameState.PickingSeed);
+        }
+    }
+
     public void Throw()
     {
         //Seed
         Rigidbody.simulated = true;
-        Rigidbody.AddForce(new Vector2(GameManager.Instance.HorizontalStrengh, GameManager.Instance.VerticalStrengh), ForceMode2D.Impulse);
+        Rigidbody.AddForce(new Vector2(GameManager.Instance.HorizontalStrengh, 5f), ForceMode2D.Impulse);
     }
     public void Reset()
     {
         Rigidbody.simulated = false;
         transform.position = _startingPosition;
+        transform.rotation = Quaternion.identity;
         OnReset?.Invoke();
-
-        GameManager.Instance.UpdateGameState(GameState.PickingSeed);
     }
 
-    public virtual void OnOnGameChanged(GameState newState)
+    void GenerateSeed()
+    {
+        GameObject go = Instantiate(SeedNextStage, SeedsParent.transform);
+        go.transform.position = transform.position;
+        go.GetComponent<SeedBehaviour>().SeedsParent = SeedsParent;
+
+        Reset();
+    }
+
+    public virtual void Growing()
     {
 
     }

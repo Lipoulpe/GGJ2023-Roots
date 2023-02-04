@@ -12,7 +12,7 @@ public class Paralax : MonoBehaviour
     private void Start()
     {
         _startPos = transform.position.x;
-        _length = gameObject.GetComponent<SpriteRenderer>().bounds.size.x;
+        _length = GetComponent<SpriteRenderer>().bounds.size.x;
     }
 
     private void FixedUpdate()

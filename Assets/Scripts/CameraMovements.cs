@@ -8,19 +8,19 @@ public class CameraMovements : MonoBehaviour
     [SerializeField] Transform _ZoomOut;
 
     [SerializeField] Transform _RefCamera;
-    [SerializeField] SeedBehaviour _Seed;
+    [SerializeField] Rigidbody2D _Seed;
 
     void Start()
     {
 
         transform.position = _RefCamera.position;
-        _Seed.OnReset += Reset;
+        GameManager.OnGameChanged += ResetPos;
 
     }
 
     private void OnDestroy()
     {
-        _Seed.OnReset -= Reset;
+        GameManager.OnGameChanged -= ResetPos;
     }
 
     private void Update()
@@ -32,7 +32,7 @@ public class CameraMovements : MonoBehaviour
     {
         if (GameManager.Instance.State != GameState.ThrowingSeed) return;
 
-        float t = _Seed.Rigidbody.velocity.x / 1000f;
+        float t = _Seed.velocity.x / 1000f;
 
 
         float x = Mathf.Lerp(_ZoomIn.position.x, _ZoomOut.position.x, t);
@@ -42,8 +42,12 @@ public class CameraMovements : MonoBehaviour
         transform.position = new Vector3(x,y,z);
     }
 
-    private void Reset()
+    private void ResetPos(GameState state)
     {
-        transform.position = _RefCamera.position;
+        if(state == GameState.PickingSeed)
+        {
+            transform.position = _RefCamera.position;
+        }
+        
     }
 }

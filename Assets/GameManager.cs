@@ -18,11 +18,12 @@ public class GameManager : MonoBehaviour
     public GameState State;
 
     public static event Action<GameState> OnGameChanged;
+    public static event Action OnPickedSeed;
 
     public float HorizontalStrengh = 500f;
     public float VerticalStrengh = 200f;
 
-    public SeedBehaviour CurrentSeed;
+    [SerializeField] SeedBehaviour _Seed;
 
     private void Awake()
     {
@@ -52,4 +53,13 @@ public class GameManager : MonoBehaviour
     {
         UpdateGameState(GameState.ThrowingSeed);
     }
+
+    public void PickedSeed(SeedBehaviour seed_0)
+    {
+        _Seed.SeedNextStage = seed_0.SeedNextStage;
+        _Seed.Rigidbody.gravityScale = seed_0.Rigidbody.gravityScale;
+
+        _Seed.SpriteRenderer.sprite = seed_0.SpriteRenderer.sprite;
+    }
+
 }

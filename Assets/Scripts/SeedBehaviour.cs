@@ -7,13 +7,14 @@ public class SeedBehaviour : MonoBehaviour
 {
     public event Action OnReset;
 
+    public SpriteRenderer SpriteRenderer;
     public Rigidbody2D Rigidbody;
     public GameObject SeedsParent;
 
     [Header("Seed Settings")]
     public int ThrowBeforeGrowth;
     public float GravityScale;
-    public GameObject[] SeedPrefab;
+    public GameObject SeedNextStage;
     public bool IsRooted = false;
 
 

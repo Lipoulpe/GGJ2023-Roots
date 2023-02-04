@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class NormalSeed : SeedBehaviour
 {
-    private int _growingvalue = 0;
 
     public override void OnOnGameChanged(GameState newState)
     {
@@ -15,6 +14,7 @@ public class NormalSeed : SeedBehaviour
         if(newState == GameState.SeedStopMoving && !IsRooted)
         {
             GenerateSeed();
+            GameManager.Instance.UpdateGameState(GameState.GrowingSeed);
         }
         if (newState == GameState.GrowingSeed && IsRooted)
         {
@@ -25,24 +25,29 @@ public class NormalSeed : SeedBehaviour
 
     void Growing()
     {
-        _growingvalue += 1;
-        if (_growingvalue >= ThrowBeforeGrowth) _growingvalue = ThrowBeforeGrowth;
-
-        print(_growingvalue);
+        if (SeedNextStage != null)
+        {
+            
+        }
 
     }
 
     void GenerateSeed()
     {
-        GameObject go = Instantiate(SeedPrefab[_growingvalue], SeedsParent.transform);
+        GameObject go = Instantiate(SeedNextStage, SeedsParent.transform);
         go.transform.position = transform.position;
         NormalSeed seed = go.GetComponent<NormalSeed>();
 
-        seed.IsRooted = true;
         seed.Growing();
 
-        GameManager.Instance.UpdateGameState(GameState.GrowingSeed);
-
         Reset();
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.name == "Seed")
+        {
+            
+        }
     }
 }
